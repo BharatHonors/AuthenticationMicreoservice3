@@ -85,7 +85,6 @@ namespace AuthenticationMicreoservice3.Controllers
 
         // DELETE api/<AuthenticationController>/5
         [HttpDelete]
-        [Authorize]
         public IActionResult Delete()
         {
             return Ok("Success full Delete Autherized");

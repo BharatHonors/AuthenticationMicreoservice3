@@ -75,7 +75,9 @@ namespace AuthenticationMicreoservice3.Controllers
 
 
         // PUT api/<AuthenticationController>/5
+
         [HttpPut]
+        [Authorize]
         public IActionResult Put()
         {
             return Ok("Success full Put unautherized");

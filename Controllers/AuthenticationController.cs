@@ -6,6 +6,7 @@ using AuthenticationMicreoservice3.Repository;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using System.Text.Encodings;
 using System.Security.Claims;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,6 +43,7 @@ namespace AuthenticationMicreoservice3.Controllers
 
         // POST api/<AuthenticationController>
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Post([FromBody] Pentioner pentioner)
         {
             
@@ -73,15 +75,18 @@ namespace AuthenticationMicreoservice3.Controllers
 
 
         // PUT api/<AuthenticationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put()
         {
+            return Ok("Success full Put unautherized");
         }
 
         // DELETE api/<AuthenticationController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Authorize]
+        public IActionResult Delete()
         {
+            return Ok("Success full Delete Autherized");
         }
     }
 }

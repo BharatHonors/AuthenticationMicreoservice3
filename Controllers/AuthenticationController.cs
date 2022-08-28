@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using AuthenticationMicreoservice3.Model;
 using AuthenticationMicreoservice3.Repository;
-
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Text.Encodings;
+using System.Security.Claims;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AuthenticationMicreoservice3.Controllers
@@ -27,6 +31,8 @@ namespace AuthenticationMicreoservice3.Controllers
             return new OkObjectResult(_pentionerDetails.GetPentioners());
         }
 
+        
+
         // GET api/<AuthenticationController>/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -36,9 +42,35 @@ namespace AuthenticationMicreoservice3.Controllers
 
         // POST api/<AuthenticationController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Pentioner pentioner)
         {
+            
+            if (_pentionerDetails.GetPentioner(pentioner) != null)
+            {
+                var tockenString = GenerateJWTocken(pentioner);
+                return Ok(new {tocken = tockenString});
+            }
+            return Unauthorized();
         }
+        public string GenerateJWTocken(Pentioner pentioner)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, pentioner.Name)
+            };
+            var tocken = new JwtSecurityToken(_config["Jwt:Issuer"],
+                _config["Jwt:Issuer"],
+                null,
+                expires: System.DateTime.Now.AddMinutes(120),
+                signingCredentials: cred);
+
+            return new JwtSecurityTokenHandler().WriteToken(tocken);
+        }
+
+
+
 
         // PUT api/<AuthenticationController>/5
         [HttpPut("{id}")]

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuthenticationMicreoservice3.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AuthenticationMicreoservice3
 {
@@ -28,6 +31,25 @@ namespace AuthenticationMicreoservice3
         {
             services.AddControllers();
             services.AddTransient<IPentionerDetails, PentionerDetails>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(option =>
+                {
+                    option.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = false,
+                        ValidateIssuerSigningKey = false,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+
+                    };
+                });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowedOriginCORSPolicy", policy => policy.WithOrigins("http://localhost:4200", "https://localhost:44391").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

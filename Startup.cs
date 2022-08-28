@@ -61,7 +61,6 @@ namespace AuthenticationMicreoservice3
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationMicreoservice3", "AuthenticationMicreoservice3.csproj", "{84BDDB89-83F2-4543-BDEE-4E5BAED66DD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84BDDB89-83F2-4543-BDEE-4E5BAED66DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BDDB89-83F2-4543-BDEE-4E5BAED66DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BDDB89-83F2-4543-BDEE-4E5BAED66DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BDDB89-83F2-4543-BDEE-4E5BAED66DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E0399A8-80B5-41FB-9B99-0F4BCB1A454E}
+	EndGlobalSection
+EndGlobal
